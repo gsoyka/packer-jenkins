@@ -1,0 +1,41 @@
+{
+  "builders": [{
+    "type": "amazon-ebs",
+    "profile": "venicegeo",
+    "communicator": "ssh",
+    "ssh_disable_agent": true,
+    "associate_public_ip_address": true,
+    "region": "us-east-1",
+	"source_ami_filter": {
+	    "filters": {
+	      "virtualization-type": "hvm",
+	      "name": "CentOS Linux 7 *",
+	      "root-device-type": "ebs"
+	    },
+	    "owners": ["679593333241"],
+	    "most_recent": true
+	},
+    "instance_type": "t2.micro",
+    "ssh_username": "centos",
+    "ssh_pty": true,
+    "ami_name": "jenkins-{{isotime \"01-02-2006-1504\"}}",
+    "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": 30,
+          "volume_type": "gp2",
+          "delete_on_termination": true
+        }
+      ]
+  }],
+  "provisioners": [
+	  { 
+	  	"type": "shell-local",
+		"command": "ansible-galaxy install --ignore-errors -v -r requirements.yml"
+	  },
+      {
+        "type": "ansible",
+        "playbook_file": "playbook.yml"
+      }
+    ]
+}

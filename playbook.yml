@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: true
+
+  vars:
+    jenkins_package_state: latest
+
+  roles:
+    - geerlingguy.java
+    - geerlingguy.jenkins

@@ -1,0 +1,5 @@
+# Required roles
+
+# Sourced from Ansible Galaxy
+- src: geerlingguy.java
+- src: geerlingguy.jenkins
