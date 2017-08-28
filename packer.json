@@ -15,7 +15,7 @@
 	    "owners": ["679593333241"],
 	    "most_recent": true
 	},
-    "instance_type": "t2.micro",
+    "instance_type": "t2.small",
     "ssh_username": "centos",
     "ssh_pty": true,
     "ami_name": "jenkins-{{isotime \"01-02-2006-1504\"}}",
@@ -30,12 +30,16 @@
   }],
   "provisioners": [
 	  { 
-	  	"type": "shell-local",
-		"command": "ansible-galaxy install --ignore-errors -v -r requirements.yml"
+	  	"type": "shell",
+		  "inline": [
+		    "sudo yum install -y epel-release",
+		    "sudo yum install -y ansible"
+		    ]
 	  },
       {
-        "type": "ansible",
-        "playbook_file": "playbook.yml"
+        "type": "ansible-local",
+        "playbook_file": "playbook.yml",
+        "galaxy_file": "requirements.yml"
       }
     ]
 }

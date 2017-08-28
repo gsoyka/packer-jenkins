@@ -4,7 +4,9 @@
 
   vars:
     jenkins_package_state: latest
-
+    java_packages:
+      - java-1.8.0-openjdk
+  
   roles:
     - geerlingguy.java
     - geerlingguy.jenkins
